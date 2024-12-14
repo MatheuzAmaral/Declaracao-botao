@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaração de Amor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8cfe8;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            border: 15px solid transparent;
+            border-image: url('img/borda.png') 10px auto;
+            background-image: url('img/borda.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            margin-top: 10px;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            max-width: 450px;
+            margin: 15px auto;
+        }
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .gallery img.active {
+            display: block;
+        }
+
+        .caption {
+            margin: 10px 0;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .question {
+            margin-top: 20px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-yes {
+            background-color: #ff69b4;
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #ff69b4;
+            color: rgb(255, 255, 255);
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgb(249, 160, 174);
+            clip-path: polygon(50% 0%, 100% 35%, 85% 100%, 50% 75%, 15% 100%, 0% 35%);
+            animation: fall 4s linear infinite;
+            opacity: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Estilos para o player de áudio */
+        .audio-player {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            height: 55px;
+            background-color: #ff69b4;
+            border-radius: 30px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Personalizando os controles do player */
+        .audio-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 30px;
+        }
+
+        /* Estilo para a mensagem flutuante */
+        .floating-message {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 105, 180, 0.8); /* Rosa claro */
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            display: none;
+            opacity: 0;
+            z-index: 200;
+            animation: fadeOut 5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Media Queries para dispositivos móveis */
+        @media (max-width: 768px) {
+            .gallery {
+                max-width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .caption {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .audio-player {
+                width: 80%;
+                bottom: 5px;
+            }
+
+            .floating-message {
+                font-size: 1rem;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .floating-message {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Matheus e Camila</h1>
+        <p>Você é a razão do meu sorriso, a pessoa que ilumina meus dias. <br> E por isso neste dia especial eu quero lhe pedir em namoro para que nossos dias sejam todos um ao lado do outro</p>
+    </header>
+
+    <div class="gallery">
+        <img src="img/img1.JPG" alt="Foto 1" class="active">
+        <img src="img/img2.JPG" alt="Foto 2">
+        <img src="img/img3.JPG" alt="Foto 3">
+        <img src="img/img4.JPG" alt="Foto 4">
+        <img src="img/img5.JPG" alt="Foto 5">
+    </div>
+    <div class="caption"> Legenda da Foto 1</div>
+
+    <div class="question">
+        <h2>Quer namorar comigo?</h2>
+    </div>
+
+    <!-- Player de vídeo embutido do YouTube -->
+    <div class="audio-player">
+        <iframe 
+            src="https://www.youtube.com/embed/-GDe5RogwXY?autoplay=1&loop=1&playlist=-GDe5RogwXY" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-yes" onclick="handleYes()">Sim</button>
+        <button class="btn btn-no" onmouseover="moveButton(this)">Não</button>
+    </div>
+
+    <!-- Mensagem flutuante -->
+    <div class="floating-message" id="floatingMessage">Você aceitou, que felicidade! ❤️</div>
+
+    <script>
+        // Slider automático
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.gallery img');
+        const captions = ["Legenda da Foto 1", "Legenda da Foto 2", "Legenda da Foto 3", "Legenda da Foto 4",  "Legenda da Foto 5"];
+        const captionElement = document.querySelector('.caption');
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+            captionElement.textContent = captions[currentIndex];
+        }
+
+        setInterval(showNextImage, 3000);
+
+        // Botão "Sim"
+        function handleYes() {
+            createHearts();
+            showFloatingMessage();
+        }
+
+        // Criar animação de corações
+        function createHearts() {
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * -100 + 'vh';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        }
+
+        // Botão "Não" fugindo
+        function moveButton(button) {
+            const x = Math.random() * (window.innerWidth - button.offsetWidth);
+            const y = Math.random() * (window.innerHeight - button.offsetHeight);
+            button.style.position = 'absolute';
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+
+        // Função para exibir a mensagem flutuante
+        function showFloatingMessage() {
+            const message = document.getElementById('floatingMessage');
+            message.style.display = 'block'; // Exibe a mensagem
+            setTimeout(() => {
+                message.style.opacity = 0; // Começa a desaparecer
+            }, 5000); // 9 segundos depois
+
+            // Remove a mensagem do DOM após a animação de desaparecimento
+            setTimeout(() => {
+                message.style.display = 'none';
+                message.style.opacity = 1; // Reseta a opacidade
+            }, 9000); // 9.0 segundos para garantir que desapareceu
+        }
+    </script>
+</body>
+</html>
